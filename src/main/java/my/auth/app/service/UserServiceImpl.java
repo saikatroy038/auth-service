@@ -2,6 +2,7 @@ package my.auth.app.service;
 
 import my.auth.app.entity.Grant;
 import my.auth.app.entity.User;
+import my.auth.app.exception.InvalidUsernamePasswordException;
 import my.auth.app.repository.GrantRepository;
 import my.auth.app.repository.UserRepository;
 import my.auth.app.service.util.HashUtil;
@@ -57,19 +58,17 @@ public class UserServiceImpl implements UserService {
     public TokenDto login(LoginDto loginDto) {
         User user = userRepository.findByUsername(loginDto.getUsername());
         if (user == null) {
-            throw new RuntimeException("Invalid username/password");
+            throw new InvalidUsernamePasswordException();
         }
 
         // convert password to hash value and compare
         if (!hashUtil.matchWithHash(user.getSalt(), loginDto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid username/password");
+            throw new InvalidUsernamePasswordException();
         }
 
-        String accessToken = jwtUtil.generateAccessJwt(user);
-
-        TokenDto tokenDto = new TokenDto();
-        tokenDto.setAccessToken(accessToken);
-
-        return tokenDto;
+        // generate access and refresh token
+        String accessToken = jwtUtil.generateAccessToken(user);
+        String refreshToken = jwtUtil.generateRefreshToken(user);
+        return new TokenDto(accessToken, refreshToken);
     }
 }

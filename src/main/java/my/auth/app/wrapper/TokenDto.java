@@ -1,6 +1,8 @@
 package my.auth.app.wrapper;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -8,6 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class TokenDto {
     /**
      * Used to access any API. Has smaller expiry time. <br />

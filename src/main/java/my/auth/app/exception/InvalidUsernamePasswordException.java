@@ -1,4 +1,4 @@
-package my.auth.app;
+package my.auth.app.exception;
 
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,9 +9,5 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @NoArgsConstructor
 @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-public class InvalidTokenException extends RuntimeException {
-
-    public InvalidTokenException(String message) {
-        super(message);
-    }
+public class InvalidUsernamePasswordException extends RuntimeException {
 }
