@@ -60,9 +60,8 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Invalid username/password");
         }
 
-        // convert to hash value and compare
-        String hashedPassword = hashUtil.getValue(user.getSalt(), loginDto.getPassword());
-        if (!hashedPassword.equals(user.getPassword())) {
+        // convert password to hash value and compare
+        if (!hashUtil.matchWithHash(user.getSalt(), loginDto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid username/password");
         }
 

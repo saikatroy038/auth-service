@@ -20,11 +20,11 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 1; // 1mins
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 1; // 1 min
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 2; // 2 hrs
 
     @Value("${jwt.secret}")
-    private String secret = "test";
+    private String secret;
 
     public String generateAccessJwt(User user) {
         Map<String, Object> claims = new HashMap<>();
